@@ -1,0 +1,8 @@
+
+body{
+    display: flex;
+    flex-direction: column;
+    background-color: #b5399c;
+    width: 90%;
+    place-items: center;
+}
