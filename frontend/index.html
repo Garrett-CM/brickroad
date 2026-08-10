@@ -3,11 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./src/style.css">
-    <title>Brickroad</title>
+    <title>Brickroad — Drag Race Fantasy League</title>
 </head>
 <body>
-    <h1>Drag Race fantasy league</h1>
-    <h3>Pick queens, win points, capture the crown!</h3>
+
+    <div class="spotlight"></div>
+
+    <div class="sequins" aria-hidden="true"></div>
+
+    <main class="stage">
+
+        <header class="marquee">
+            <p class="eyebrow">Sashay in, place your bets</p>
+            <h1 class="title">
+                <span class="title-line">BRICK</span><span class="title-line title-accent">ROAD</span>
+            </h1>
+            <p class="tagline">Pick your queens. Track the scores. Lip‑sync your way to the crown.</p>
+        </header>
+
+        <div class="ribbon" role="presentation">
+            <span></span><span></span><span></span>
+        </div>
+
+        <section class="panels" aria-label="Get started">
+
+            <div class="panel panel--join">
+                <div class="panel-kicker">Already in a league</div>
+                <h2 class="panel-title">Join with a room code</h2>
+                <p class="panel-copy">Got a code from your library, your sisters, or your werk room chat? Drop it in below.</p>
+                <form class="join-form" autocomplete="off">
+                    <label for="room-code" class="sr-only">Room code</label>
+                    <input
+                        id="room-code"
+                        name="room-code"
+                        type="text"
+                        placeholder="ROOM CODE"
+                        maxlength="6"
+                        class="code-input"
+                        autocapitalize="characters"
+                    >
+                    <button type="submit" class="btn btn--join">
+                        Enter the werk room
+                    </button>
+                </form>
+            </div>
+
+            <div class="panel-divider" aria-hidden="true">
+                <span>or</span>
+            </div>
+
+            <div class="panel panel--create">
+                <div class="panel-kicker">Starting fresh</div>
+                <h2 class="panel-title">Create a new league</h2>
+                <p class="panel-copy">Set the rules, invite your queens' biggest fans, and hand out a room code of your own.</p>
+                <button type="button" class="btn btn--create">
+                    Create a league
+                </button>
+            </div>
+
+        </section>
+
+        <footer class="stage-footer">
+            <p>Condragulations in advance.</p>
+        </footer>
+
+    </main>
+
 </body>
 </html>
