@@ -5,6 +5,7 @@ import {
     startNewSeason,
     getCurrentTeam,
     getQueen,
+    getTeamStats,
 } from "./state.js";
 
 let league = loadLeague();
@@ -259,6 +260,49 @@ document.getElementById("goto-league-btn").addEventListener("click", () => {
    League dashboard view
 ----------------------------------------------------------- */
 
+function formatCash(amount) {
+    return `$${amount.toLocaleString("en-US")}`;
+}
+
+function renderStandings() {
+    const standings = document.getElementById("standings");
+    standings.innerHTML = "";
+
+    const ranked = league.teams
+        .map((team) => ({ team, stats: getTeamStats(team) }))
+        .sort(
+            (a, b) =>
+                b.stats.cashWon - a.stats.cashWon ||
+                b.stats.maxiWins - a.stats.maxiWins ||
+                b.stats.miniWins - a.stats.miniWins
+        );
+
+    ranked.forEach(({ team, stats }, i) => {
+        const card = document.createElement("div");
+        card.className = "standing-card";
+        if (i === 0) card.classList.add("standing-card--leader");
+        card.innerHTML = `
+            <div class="standing-rank">#${i + 1}${i === 0 ? " 👑" : ""}</div>
+            <h3 class="standing-team-name">${escapeHtml(team.name)}</h3>
+            <div class="standing-stats">
+                <div class="stat">
+                    <span class="stat-value">${stats.miniWins}</span>
+                    <span class="stat-label">Mini wins</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">${stats.maxiWins}</span>
+                    <span class="stat-label">Maxi wins</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">${formatCash(stats.cashWon)}</span>
+                    <span class="stat-label">Cash won</span>
+                </div>
+            </div>
+        `;
+        standings.appendChild(card);
+    });
+}
+
 function renderLeagueView() {
     if (!league) return;
 
@@ -266,6 +310,8 @@ function renderLeagueView() {
     document.getElementById("league-season-badge").textContent =
         `Season ${league.season}`;
     document.getElementById("league-room-code").textContent = league.roomCode;
+
+    renderStandings();
 
     const grid = document.getElementById("league-roster-grid");
     grid.innerHTML = "";

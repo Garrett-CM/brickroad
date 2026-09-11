@@ -752,6 +752,77 @@ body {
     font-style: italic;
 }
 
+/* -----------------------------------------------------------
+   Season standings (werk room lobby)
+----------------------------------------------------------- */
+
+.standings-section {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.standings {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.standing-card {
+    background: linear-gradient(165deg, rgba(246, 240, 232, 0.06), rgba(246, 240, 232, 0.02));
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1.25rem;
+}
+
+.standing-card--leader {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 1px rgba(255, 216, 77, 0.3), 0 8px 24px rgba(255, 216, 77, 0.14);
+}
+
+.standing-rank {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+}
+
+.standing-team-name {
+    margin: 0 0 1rem;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: var(--cream);
+}
+
+.standing-stats {
+    display: flex;
+    gap: 1.25rem;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.stat-value {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--magenta);
+}
+
+.stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--lavender);
+}
+
 .draft-complete {
     width: 100%;
     text-align: center;
@@ -778,6 +849,11 @@ body {
 @media (max-width: 720px) {
     .panels {
         grid-template-columns: 1fr;
+    }
+
+    .standing-stats {
+        flex-wrap: wrap;
+        row-gap: 0.75rem;
     }
 
     .panel-divider {

@@ -62,6 +62,21 @@ export function getQueen(id) {
     return QUEEN_BANK.find((q) => q.id === id);
 }
 
+// Season stats for a team: the sum of its drafted queens' mini-challenge
+// wins, maxi-challenge wins, and cash won.
+export function getTeamStats(team) {
+    return team.roster.reduce(
+        (totals, queenId) => {
+            const queen = getQueen(queenId);
+            totals.miniWins += queen.miniWins;
+            totals.maxiWins += queen.maxiWins;
+            totals.cashWon += queen.cashWon;
+            return totals;
+        },
+        { miniWins: 0, maxiWins: 0, cashWon: 0 }
+    );
+}
+
 export function createLeague(name, teamNames) {
     const teams = teamNames.map((teamName, i) => ({
         id: `t${i + 1}-${Date.now()}`,

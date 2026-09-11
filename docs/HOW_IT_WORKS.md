@@ -18,7 +18,7 @@ toggling the `hidden` attribute (see `showView()`).
 | Home | `view-home` | Landing page: join by code, or create a league. |
 | Create league | `view-create` | Name the league and add teams. |
 | Draft | `view-draft` | Turn-based picking from the player bank. |
-| League dashboard | `view-league` | Final rosters, room code, start a new season. |
+| League dashboard (the "werk room") | `view-league` | Season stats, final rosters, room code, start a new season. |
 
 ## The flow
 
@@ -43,10 +43,12 @@ Home ──create a league──▶ Create league ──start the draft──▶
   below), generates a room code, builds the draft order, and jumps
   straight into the Draft view.
 - **Draft.** See [The draft](#the-draft) below.
-- **League dashboard.** Shows every team's final roster, the league's
-  season number, and its room code. "Start new season" resets rosters and
-  the player bank (see [Seasons](#seasons)) and returns to the Draft view.
-  "Back home" just returns to Home; nothing is lost.
+- **League dashboard (the werk room).** The lobby you land in once a
+  season's draft is done. Shows a season stats leaderboard (see
+  [Season stats](#season-stats)) up top, every team's final roster below
+  it, and the league's season number and room code. "Start new season"
+  resets rosters and the player bank (see [Seasons](#seasons)) and returns
+  to the Draft view. "Back home" just returns to Home; nothing is lost.
 
 ## The draft
 
@@ -78,6 +80,24 @@ While drafting, the Draft view shows:
 
 When the bank empties, the pick grid is replaced with a "that's a wrap"
 message and a button into the League dashboard.
+
+## Season stats
+
+The werk room lobby leads with a standings leaderboard, one card per team,
+ranked by cash won (ties broken by maxi wins, then mini wins) with the
+leader marked 👑. Each card shows three numbers:
+
+- **Mini wins** — mini-challenge wins.
+- **Maxi wins** — maxi-challenge (main challenge) wins.
+- **Cash won** — prize money, formatted as `$12,500`.
+
+These are computed by `getTeamStats(team)` in `state.js`, which just sums
+the `miniWins` / `maxiWins` / `cashWon` fields of every queen on that
+team's roster (looked up via `getQueen(id)`) — nothing is stored on the
+team itself. Since those fields live on the (placeholder) queen data
+rather than on the league, they're the same regardless of season; real
+per-episode/per-season results need actual scoring, which is still a
+"BE logic" todo item.
 
 ## Seasons
 
@@ -116,6 +136,7 @@ localStorage key (see `state.js`):
 }
 ```
 
-Queen data itself (name/house/tagline) isn't duplicated into the league —
-`teams[].roster` and `bank` just hold queen ids, looked up against the
-static list in `queens.js` (`getQueen(id)`) when rendering.
+Queen data itself (name, house, tagline, and the `miniWins` / `maxiWins`
+/ `cashWon` stats) isn't duplicated into the league — `teams[].roster` and
+`bank` just hold queen ids, looked up against the static list in
+`queens.js` (`getQueen(id)`) when rendering or computing stats.

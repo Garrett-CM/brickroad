@@ -50,10 +50,16 @@ and to persist.
 ## Placeholder data
 
 `queens.js` is fictional filler, not the real cast list — see the README
-todo item "queen db". The shape (`id`, `name`, `house`, `tagline`) is meant
-to be what a future `/api/queens` (or similar) call would return, so
-swapping the import in `state.js` for a fetch should be close to a
-one-line change.
+todo item "queen db". The shape (`id`, `name`, `house`, `tagline`,
+`miniWins`, `maxiWins`, `cashWon`) is meant to be what a future
+`/api/queens` (or similar) call would return, so swapping the import in
+`state.js` for a fetch should be close to a one-line change.
+
+The `miniWins` / `maxiWins` / `cashWon` fields back the werk-room
+standings leaderboard (see docs/HOW_IT_WORKS.md#season-stats). They're
+fixed numbers per queen rather than per-season results — a known
+simplification, since there's no real scoring yet. `state.js#getTeamStats`
+sums them across a team's roster on demand; nothing is cached on the team.
 
 ## Known gaps / non-goals for now
 
@@ -63,8 +69,10 @@ one-line change.
   to look up a league by code.
 - **No accounts.** Anyone with the browser (or the room code, once join
   works) can act as any team — there's no per-user identity yet.
-- **No scoring.** Rosters exist once drafted, but nothing computes weekly
-  scores — that's the "BE logic" + "queen db" todo items.
+- **No real scoring.** The werk-room standings sum static placeholder
+  stats per queen (see [Placeholder data](#placeholder-data)) — nothing
+  tracks actual weekly episode results yet. That's the "BE logic" +
+  "queen db" todo items.
 - **Single league per browser.** Starting a new league overwrites the old
   one in localStorage. Fine for local testing, not fine for real usage.
 - **No tests.** There's no test runner in the repo. New logic in
